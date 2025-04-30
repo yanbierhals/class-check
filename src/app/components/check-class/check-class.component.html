@@ -1,0 +1,13 @@
+<div style="text-align: center; margin-top: 50px;">
+  <button (click)="startScanning()" *ngIf="!isScanning">Check!</button>
+
+  <zxing-scanner
+    *ngIf="isScanning"
+    (scanSuccess)="onScanSuccess($event)"
+    [formats]="formats"
+    [device]="currentDevice"
+    style="width: 100%; max-width: 400px; margin: auto;"
+  ></zxing-scanner>
+  <p *ngIf="isScanning">Câmera ativa. Aponte para um QR Code.</p>
+
+</div>
