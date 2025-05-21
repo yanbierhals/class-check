@@ -1,13 +1,19 @@
-<div style="text-align: center; margin-top: 50px;">
+<div class="top-menu">
+  <a href="#">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white"
+      class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+      <path
+        d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1" />
+    </svg>
+  </a>
+</div>
+
+<div class="content">
   <button (click)="startScanning()" *ngIf="!isScanning">Check!</button>
 
-  <zxing-scanner
-    *ngIf="isScanning"
+  <zxing-scanner *ngIf="isScanning"
     (scanSuccess)="onScanSuccess($event)"
     [formats]="formats"
-    [device]="currentDevice"
-    style="width: 100%; max-width: 400px; margin: auto;"
-  ></zxing-scanner>
-  <p *ngIf="isScanning">Câmera ativa. Aponte para um QR Code.</p>
-
+    [device]="currentDevice">
+  </zxing-scanner>
 </div>
