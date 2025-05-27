@@ -6,14 +6,14 @@
   flex-direction: column;
 }
 
-.login-container {
+.register-container {
   width: 85%;
   padding: 32px 24px;
   border-radius: 8px;
   text-align: center;
 }
 
-.login-label {
+.register-label {
   text-align: left;
   width: 100%;
   margin-bottom: 30px;
@@ -28,21 +28,21 @@ input {
   border: 1px solid #bbb;
   font-size: 16px;
   font-weight: bold;
+  box-shadow: 5px 5px 10px lightgray;
 }
 
-/* Estilo para o placeholder */
 input::placeholder {
   font-size: 16px;
   font-weight: bold;
-  color: #888; /* opcional */
+  color: #888;
 }
 
 button {
-  font-size: 16px;
+  font-size: 24px;
   height: 50px;
   width: 95%;
   padding: 0;
-  background: #1976d2;
+  background: #F39237;
   color: #fff;
   border: none;
   border-radius: 9px;
@@ -59,20 +59,28 @@ button:disabled {
   background: #aaa;
 }
 
-.login-container a {
+button:focus {
+  background: #E5862C;
+}
+
+.register-container a {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 50px;
   width: 95%;
   padding: 0;
-  background: #f0f0f0;
   border-radius: 9px;
-  color: #1976d2;
+  color: #F39237;
   text-decoration: none;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 24px;
   margin: 0 auto;
+  border: 1px solid #F39237;
+}
+
+.register-container a:focus {
+  background: #D9D9D9;
 }
 
 .error {

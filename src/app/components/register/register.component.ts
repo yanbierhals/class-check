@@ -10,16 +10,18 @@ import { CommonModule } from '@angular/common'; // Adicione esta linha
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  username = '';
+  name = '';
+  email = '';
   password = '';
-  loginError = false;
+  password2 = '';
+  registerError = false;
 
-  onLogin(): void {
-    if (this.username === 'admin' && this.password === 'admin') {
-      this.loginError = false;
+  onRegister(): void {
+    if (this.name === 'admin' && this.password === 'admin' && this.password2 === this.password) {
+      this.registerError = false;
       alert('Cadastro realizado com sucesso!');
     } else {
-      this.loginError = true;
+      this.registerError = true;
     }
   }
 }
