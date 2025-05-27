@@ -3,7 +3,7 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  overflow-x: hidden; // Previne scroll horizontal causado pelo sidebar
+  overflow-x: hidden; 
   background-color: #f4f4f4;
 }
 
@@ -13,6 +13,7 @@
   height: 100%;
   width: 100%;
   position: relative;
+  padding-bottom: 90px; 
 }
 
 .profile-header {
@@ -20,7 +21,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 15px;
-  background-color: #F39237; // Laranja do wireframe
+  background-color: #F39237; 
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
@@ -28,7 +29,7 @@
   left: 0;
   right: 0;
   z-index: 1000;
-  height: 60px; // Altura fixa para o header
+  height: 60px; 
   box-sizing: border-box;
 
   h1 {
@@ -52,27 +53,27 @@
     }
   }
   .menu-button {
-    z-index: 1002; // Para ficar acima do overlay quando o menu estiver aberto
+    z-index: 1002; 
   }
 }
 
 .sidebar {
   position: fixed;
   top: 0;
-  right: -300px; // Começa fora da tela
-  width: 280px; // Largura do menu lateral
+  right: -300px;
+  width: 280px; 
   height: 100%;
-  background-color: #F39237; // Laranja
+  background-color: #F39237; 
   color: white;
   box-shadow: -2px 0 5px rgba(0,0,0,0.2);
   transition: right 0.3s ease-in-out;
   z-index: 1001;
   display: flex;
   flex-direction: column;
-  padding-top: 20px; // Espaço para o botão de fechar
+  padding-top: 20px;
 
   &.aberto {
-    right: 0; // Desliza para dentro da tela
+    right: 0;
   }
 
   .sidebar-header {
@@ -112,6 +113,7 @@
       font-size: 0.8em;
       color: rgba(255, 255, 255, 0.8);
       margin: 0;
+      word-break: break-all;
     }
   }
 
@@ -145,7 +147,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000; // Abaixo do sidebar, mas acima do conteúdo
+  z-index: 1000;
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
@@ -158,10 +160,9 @@
 
 
 .profile-content {
-  padding-top: 75px; // Espaço para o header fixo + uma margem
-  padding-bottom: 20px;
+  padding-top: 75px;
   flex-grow: 1;
-  overflow-y: auto; // Permite scroll apenas no conteúdo principal
+  overflow-y: auto; 
 }
 
 .profile-info {
@@ -203,7 +204,7 @@
     margin-top: 20px;
     text-transform: uppercase;
     font-weight: bold;
-    padding-left: 5px; // Alinhar com os cards
+    padding-left: 5px; 
   }
 
   .event-card {
@@ -211,16 +212,16 @@
     border-radius: 8px;
     margin-bottom: 15px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    overflow: hidden; // Para o border-radius funcionar com o ::before
+    overflow: hidden;
 
     .event-summary {
       display: flex;
       align-items: center;
       padding: 15px;
       cursor: pointer;
-      position: relative; // Para o pseudo-elemento da borda
+      position: relative; 
 
-      &::before { // Borda laranja à esquerda
+      &::before { 
         content: '';
         position: absolute;
         left: 0;
@@ -234,7 +235,7 @@
       .event-icon {
         margin-right: 15px;
         flex-shrink: 0;
-        padding-left: 10px; // Espaço após a borda
+        padding-left: 10px; 
       }
 
       .event-info {
@@ -250,6 +251,17 @@
           font-size: 0.85em;
           color: #777;
         }
+        .qr-code-link {
+            font-size: 0.8em;
+            color: #4A90E2; 
+            text-decoration: none;
+            margin-top: 4px;
+            display: inline-block;
+            font-weight: 500;
+            &:hover {
+              text-decoration: underline;
+            }
+          }
       }
 
       .event-status {
@@ -261,12 +273,12 @@
         white-space: nowrap;
 
         &.status-presente {
-          background-color: #e8f5e9; // Verde claro
-          color: #388e3c; // Verde escuro
+          background-color: #e8f5e9; 
+          color: #388e3c; 
         }
         &.status-falta {
-          background-color: #ffebee; // Vermelho claro
-          color: #d32f2f; // Vermelho escuro
+          background-color: #ffebee; 
+          color: #d32f2f; 
         }
       }
       .event-expand-icon {
@@ -276,9 +288,9 @@
     }
 
     .event-details {
-      padding: 0px 15px 15px 30px; // Adiciona padding interno, especialmente à esquerda
+      padding: 0px 15px 15px 30px; 
       border-top: 1px solid #eee;
-      background-color: #f9f9f9; // Um fundo levemente diferente para destacar
+      background-color: #f9f9f9; 
 
       p, div {
         margin-bottom: 8px;
@@ -292,32 +304,93 @@
         list-style: none;
         padding-left: 0;
         margin-top: 5px;
-        li a {
-          color: #F39237;
-          text-decoration: none;
-          &:hover {
-            text-decoration: underline;
-          }
+        li {
+            padding: 3px 0;
+             a {
+                color: #F39237;
+                text-decoration: none;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
       }
     }
   }
 }
 
-// Estilização para iPhone 12 Pro (390x844) como base, mas responsivo
-// A maioria dos estilos acima já são mobile-first.
-// Se precisarmos de ajustes específicos para telas maiores, podemos usar media queries.
-// Exemplo:
-// @media (min-width: 768px) {
-//   .profile-header h1 {
-//     font-size: 1.5em;
-//   }
-//   .sidebar {
-//      // Se quiser que o sidebar seja fixo e visível em telas maiores
-//      // width: 250px;
-//      // transform: translateX(0);
-//   }
-//   .profile-content {
-//     // margin-left: 250px; // Se o sidebar estiver fixo
-//   }
-// }
+.event-list.created-events {
+  .event-card {
+    .event-summary {
+      &::before { 
+        background-color: #4A90E2; 
+      }
+    }
+  }
+  .event-info { 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .event-details.event-participants { 
+    ul {
+      li {
+        .checkin-time {
+          color: #555;
+          font-style: italic;
+          font-size: 0.9em;
+        }
+      }
+    }
+     p {
+        font-style: italic;
+        color: #777;
+     }
+  }
+}
+
+
+.fixed-check-button {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 80px;
+  height: 80px;
+  background-color: #003cff;
+  color: white;
+  border-radius: 50%;
+  border: 5px solid black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  z-index: 999;
+  text-decoration: none;
+  padding: 8px;
+  box-sizing: border-box;
+
+  svg {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 2px;
+  }
+
+  span {
+    font-size: 0.8em;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  &:hover {
+    background-color: #e08021;
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+  &:active {
+    transform: translateX(-50%) scale(0.95) translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+}

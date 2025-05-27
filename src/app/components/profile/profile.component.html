@@ -22,7 +22,8 @@
       </button>
       <img [src]="usuario.imagemUrl" alt="Foto do Perfil" class="sidebar-profile-pic">
       <h2>{{ usuario.nome }}</h2>
-      <p>Análise e Desenvolvimento de Sistemas</p>  </div>
+      <p>{{ usuario.email }}</p>
+    </div>
     <nav class="sidebar-nav">
       <ul>
         <li><a routerLink="/profile" (click)="toggleMenu()">Meu Perfil</a></li>
@@ -42,8 +43,8 @@
     </section>
 
     <section class="event-list">
-      <h3>MEUS EVENTOS</h3>
-      <div *ngFor="let evento of eventos" class="event-card">
+      <h3>EVENTOS QUE PARTICIPEI</h3>
+      <div *ngFor="let evento of eventosParticipados" class="event-card">
         <div class="event-summary" (click)="toggleDetalhes(evento)">
           <div class="event-icon">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#F39237" class="bi bi-calendar-event" viewBox="0 0 16 16">
@@ -81,5 +82,52 @@
         </div>
       </div>
     </section>
+
+    <section class="event-list created-events">
+      <h3>EVENTOS CRIADOS POR MIM</h3>
+      <div *ngFor="let evento of eventosCriados" class="event-card">
+        <div class="event-summary" (click)="toggleDetalhes(evento)">
+          <div class="event-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#4A90E2" class="bi bi-card-list" viewBox="0 0 16 16">
+              <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zM1 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>
+              <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
+            </svg>
+          </div>
+          <div class="event-info">
+            <h4>{{ evento.titulo }}</h4>
+             <a [routerLink]="evento.linkQrCode" class="qr-code-link">Ver QR Code</a>
+          </div>
+          <div class="event-expand-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi" viewBox="0 0 16 16" [class.bi-chevron-down]="!evento.expandido" [class.bi-chevron-up]="evento.expandido">
+              <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" *ngIf="!evento.expandido"/>
+              <path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" *ngIf="evento.expandido"/>
+            </svg>
+          </div>
+        </div>
+        <div class="event-details event-participants" *ngIf="evento.expandido">
+          <strong>Participantes:</strong>
+          <ul *ngIf="evento.participantes.length > 0; else noParticipantes">
+            <li *ngFor="let participante of evento.participantes">
+              {{ participante.nome }} - <span class="checkin-time">Presença às: {{ participante.horarioPresenca }}</span>
+            </li>
+          </ul>
+          <ng-template #noParticipantes>
+            <p>Nenhum participante marcou presença ainda.</p>
+          </ng-template>
+        </div>
+      </div>
+    </section>
+
   </main>
+
+  <button class="fixed-check-button" routerLink="/check-class">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-qr-code-scan" viewBox="0 0 16 16">
+      <path d="M0 .5A.5.5 0 0 1 .5 0h3a.5.5 0 0 1 0 1H1v2.5a.5.5 0 0 1-1 0zm12 0a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-1 0V1h-2.5a.5.5 0 0 1-.5-.5M.5 12a.5.5 0 0 1 .5.5V15h2.5a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5m15 0a.5.5 0 0 1 .5.5v3a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1 0-1H15v-2.5a.5.5 0 0 1 .5-.5M4 4h1v1H4z"/>
+      <path d="M7 2H2v5h5zM3 3h3v3H3zm2 8H4v1h1z"/>
+      <path d="M7 9H2v5h5zm-4 1h3v3H3zm8-6h1v1h-1z"/>
+      <path d="M9 2h5v5H9zm1 1v3h3V3zM8 8v2h1v1H8v1h2v-2h1v2h1v-1h2v-1h-3V8zm2 2H9V9h1zm4 2h-1v1h-2v1h3zm-4 2v-1H8v1z"/>
+      <path d="M12 9h2V8h-2z"/>
+    </svg>
+    <span>Check!</span>
+  </button>
 </div>

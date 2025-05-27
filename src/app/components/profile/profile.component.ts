@@ -2,7 +2,8 @@ import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
-interface Evento {
+// Interface para eventos que o usuário participou
+interface EventoParticipado {
   id: number;
   titulo: string;
   data: string;
@@ -17,6 +18,23 @@ interface Evento {
   expandido?: boolean;
 }
 
+// Interface para participantes de um evento criado pelo usuário
+interface ParticipanteEvento {
+  nome: string;
+  horarioPresenca: string;
+}
+
+// Interface para eventos criados pelo usuário
+interface EventoCriado {
+  id: number;
+  titulo: string;
+  // data: string; // Data do evento, se necessário
+  participantes: ParticipanteEvento[];
+  linkQrCode: string; // e.g., '/qrcode' ou pode ser dinâmico '/qrcode/eventoId'
+  expandido?: boolean;
+}
+
+
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -28,13 +46,14 @@ export class ProfileComponent {
   menuAberto = false;
   larguraTela = window.innerWidth;
 
-  // Dados mocados para o perfil e eventos
   usuario = {
     nome: 'Thiago Schiedeck',
-    imagemUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkT58wOkeNrMy71OElhWUNq6AvV4koM8u4A&s'
+    imagemUrl: 'https://preview.redd.it/1icg9y867o461.jpg?auto=webp&s=40c7e7ba390e56382c1ab0f8efcbed5a3eb86521',
+    email: 'thiago@gmail.com' // E-mail corrigido
   };
 
-  eventos: Evento[] = [
+  // Eventos que o usuário participou
+  eventosParticipados: EventoParticipado[] = [
     {
       id: 1,
       titulo: 'Aula de Angular Avançado',
@@ -62,22 +81,36 @@ export class ProfileComponent {
         arquivos: ['apresentacao.pptx']
       },
       expandido: false
+    }
+  ];
+
+  // Eventos criados pelo usuário (mock data)
+  eventosCriados: EventoCriado[] = [
+    {
+      id: 101,
+      titulo: 'Palestra de Introdução ao TypeScript',
+      // data: '30/05/2024',
+      participantes: [
+        { nome: 'Carlos Silva', horarioPresenca: '14:05' },
+        { nome: 'Amanda Souza', horarioPresenca: '14:07' },
+        { nome: 'Rodrigo Alves', horarioPresenca: '14:15' }
+      ],
+      linkQrCode: '/qrcode', // Ou, por exemplo, `/qrcode/101` se for dinâmico
+      expandido: false
     },
     {
-      id: 3,
-      titulo: 'Palestra sobre IA',
-      data: '15/07/2024',
-      status: 'Presente',
-      detalhes: {
-        local: 'Online',
-        horario: '14:00 - 15:30',
-        professor: 'IA Expert',
-        observacoes: 'Link será enviado por e-mail.',
-        arquivos: []
-      },
+      id: 102,
+      titulo: 'Meetup Desenvolvedores Locais',
+      // data: '15/06/2024',
+      participantes: [
+        { nome: 'Juliana Lima', horarioPresenca: '19:02' },
+        { nome: 'Fernando Costa', horarioPresenca: '19:03' }
+      ],
+      linkQrCode: '/qrcode', // Ou `/qrcode/102`
       expandido: false
     }
   ];
+
 
   constructor() {
     this.verificarLarguraTela();
@@ -93,8 +126,9 @@ export class ProfileComponent {
     }
   }
 
-  toggleDetalhes(evento: Evento): void {
-    evento.expandido = !evento.expandido;
+  // Método genérico para toggle de detalhes
+  toggleDetalhes(item: { expandido?: boolean }): void {
+    item.expandido = !item.expandido;
   }
 
   @HostListener('window:resize', ['$event'])
@@ -104,15 +138,8 @@ export class ProfileComponent {
 
   private verificarLarguraTela(): void {
     this.larguraTela = window.innerWidth;
-    // Se a tela for maior que o breakpoint do celular (ex: 768px),
-    // e o menu estiver aberto como sidebar, forçamos ele a fechar.
-    // Isso é para o caso de redimensionar a tela com o menu já aberto.
-    if (this.larguraTela > 390 && this.menuAberto) {
-      // this.menuAberto = false; // Ou manter aberto, dependendo do comportamento desejado
-    }
   }
 
-  // Previne que o clique dentro do menu feche o menu
   pararPropagacao(event: MouseEvent): void {
     event.stopPropagation();
   }
