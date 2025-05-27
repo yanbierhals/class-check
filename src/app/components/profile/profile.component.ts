@@ -31,7 +31,7 @@ export class ProfileComponent {
   // Dados mocados para o perfil e eventos
   usuario = {
     nome: 'Thiago Schiedeck',
-    imagemUrl: 'https://via.placeholder.com/80'
+    imagemUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJkT58wOkeNrMy71OElhWUNq6AvV4koM8u4A&s'
   };
 
   eventos: Evento[] = [
