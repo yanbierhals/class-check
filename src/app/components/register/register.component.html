@@ -1,6 +1,6 @@
 <div class="wrapper">
   <div class="login-container">
-    <h2 class="login-label">LOGIN</h2>
+    <h2 class="login-label">Login</h2>
     <form (ngSubmit)="onLogin()" #loginForm="ngForm">
       <input
         type="text"
@@ -17,8 +17,8 @@
         required
       />
       <button type="submit" [disabled]="loginForm.invalid">Acessar</button>
+      <a routerLink="/register">Cadastrar</a>
     </form>
-    <a routerLink="/register">Cadastrar</a>
     <p *ngIf="loginError" class="error">Usuário ou senha inválidos.</p>
   </div>
 </div>

@@ -28,13 +28,13 @@ input {
   border: 1px solid #bbb;
   font-size: 16px;
   font-weight: bold;
-  box-shadow: 5px 5px 10px lightgray;
 }
 
+/* Estilo para o placeholder */
 input::placeholder {
   font-size: 16px;
   font-weight: bold;
-  color: #888;
+  color: #888; /* opcional */
 }
 
 button {
@@ -42,7 +42,7 @@ button {
   height: 50px;
   width: 95%;
   padding: 0;
-  background: #F39237;
+  background: #1976d2;
   color: #fff;
   border: none;
   border-radius: 9px;
@@ -66,18 +66,13 @@ button:disabled {
   height: 50px;
   width: 95%;
   padding: 0;
+  background: #f0f0f0;
   border-radius: 9px;
-  color: #F39237;
+  color: #1976d2;
   text-decoration: none;
   font-weight: bold;
   font-size: 16px;
   margin: 0 auto;
-  border: 1px solid #F39237;
-}
-
-.buttons {
-  width: 100%;
-  bottom: 30px;
 }
 
 .error {
