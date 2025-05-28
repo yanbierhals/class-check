@@ -20,7 +20,6 @@ export class LoginComponent {
   onLogin(): void {
     if (this.username === 'admin' && this.password === 'admin') {
       this.loginError = false;
-      alert('Login realizado com sucesso!');
       this.router.navigate(['/profile']);
 
     } else {
