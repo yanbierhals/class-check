@@ -1,27 +1,41 @@
+// frontend/src/app/components/register/register.component.ts
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common'; // Adicione esta linha
+import { Router, RouterModule } from '@angular/router';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Inclua CommonModule aqui
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  name = '';
-  email = '';
-  password = '';
-  password2 = '';
+  registerData = {
+    nome: '',
+    email: '',
+    senha: ''
+  };
   registerError = false;
 
+  constructor(private apiService: ApiService, private router: Router) {}
+
   onRegister(): void {
-    if (this.name === 'admin' && this.password === 'admin' && this.password2 === this.password) {
-      this.registerError = false;
-      alert('Cadastro realizado com sucesso!');
-    } else {
-      this.registerError = true;
-    }
+    this.registerError = false;
+    this.apiService.register(this.registerData).subscribe({
+      next: (response) => {
+        console.log('Registro bem-sucedido!', response);
+        // Opcional: mostrar uma mensagem de sucesso
+        alert('Cadastro realizado com sucesso! Você será redirecionado para o login.');
+        // Redireciona para a página de login após o sucesso
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.error('Erro no registro:', err);
+        this.registerError = true;
+      }
+    });
   }
 }

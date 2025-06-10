@@ -57,3 +57,30 @@ exports.deleteMe = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.getEventosCriados = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const result = await db.query('SELECT * FROM Eventos WHERE organizador_id = $1 ORDER BY data_hora_inicio DESC', [id]);
+        res.json(result.rows);
+    } catch (error) {
+        next(error);
+    }
+};
+
+exports.getEventosParticipados = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const result = await db.query(
+            `SELECT e.*
+             FROM Eventos e
+             JOIN RegistrosPresenca rp ON e.id = rp.evento_id
+             WHERE rp.usuario_id = $1
+             ORDER BY e.data_hora_inicio DESC`,
+            [id]
+        );
+        res.json(result.rows);
+    } catch (error) {
+        next(error);
+    }
+};
