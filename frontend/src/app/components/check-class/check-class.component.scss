@@ -1,23 +1,21 @@
-// :host original removido ou ajustado se necessário pelo wrapper
 .check-class-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh; // Ocupa a tela toda
+  height: 100vh; 
   width: 100vw;
-  overflow-x: hidden; // Previne scroll horizontal causado pelo sidebar
-  background-color: #f4f4f4; // Fundo geral da página
+  overflow-x: hidden; 
+  background-color: #f4f4f4; 
 }
 
-// Estilos do Header (copiados/adaptados do profile.component.scss)
 .page-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 15px;
-  background-color: #F39237; // Laranja do wireframe
+  background-color: #F39237; 
   color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: fixed; // Fixo no topo
+  position: fixed; 
   top: 0;
   left: 0;
   right: 0;
@@ -40,7 +38,7 @@
     color: white;
     cursor: pointer;
     padding: 5px;
-    z-index: 1002; // Para sobrepor outros elementos se necessário
+    z-index: 1002;
     svg {
       width: 24px;
       height: 24px;
@@ -48,7 +46,6 @@
   }
 }
 
-// Estilos do Sidebar e Overlay (copiados/adaptados do profile.component.scss)
 .sidebar {
   position: fixed;
   top: 0;
@@ -105,7 +102,7 @@
       font-size: 0.8em;
       color: rgba(255, 255, 255, 0.8);
       margin: 0;
-      word-break: break-all; // Para quebrar e-mails longos
+      word-break: break-all;
     }
   }
 
@@ -150,17 +147,16 @@
   }
 }
 
-// Ajusta o conteúdo principal para não ficar embaixo do header fixo
 .scanner-content {
-  padding-top: 80px; // Altura do header (60px) + margem (20px)
-  flex-grow: 1; // Ocupa o espaço restante
+  padding-top: 80px; 
+  flex-grow: 1; 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   box-sizing: border-box;
   width: 100%;
-  text-align: center; // Centraliza texto de instruções
+  text-align: center; 
 
   .instructions {
     margin-bottom: 30px;
@@ -180,19 +176,19 @@
     margin-bottom: 20px;
     padding: 15px 30px;
     font-size: 1.1em;
-    background-color: #F39237; // Cor laranja principal
+    background-color: #F39237; 
     color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 10px; // Espaço entre ícone e texto
+    gap: 10px; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.15);
     transition: background-color 0.2s;
 
     &:hover {
-      background-color: #e08021; // Laranja mais escuro
+      background-color: #e08021;
     }
     svg {
       width: 24px;
@@ -201,12 +197,12 @@
   }
 
   .scanner-element {
-    width: clamp(280px, 90vw, 400px); // Largura responsiva
-    max-height: 60vh; // Altura máxima
+    width: clamp(280px, 90vw, 400px); 
+    max-height: 60vh; 
     border: 2px solid #ddd;
     border-radius: 8px;
-    overflow: hidden; // Garante que o vídeo do scanner não ultrapasse as bordas
-    background-color: #333; // Fundo escuro para a área do scanner
+    overflow: hidden; 
+    background-color: #333; 
   }
   .scan-message {
     margin-top: 15px;
@@ -214,6 +210,3 @@
     color: #555;
   }
 }
-
-// Removendo o antigo .top-menu se não for mais usado.
-// .top-menu { ... }

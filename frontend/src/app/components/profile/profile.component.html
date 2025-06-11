@@ -82,7 +82,7 @@
       <section class="event-list created-events">
         <div class="section-header">
           <h3>EVENTOS CRIADOS POR MIM</h3>
-          <a routerLink="/create-event" class="create-event-button">+ Criar Evento</a>
+          <a routerLink="/create-event" class="create-event-button">+</a>
         </div>
         <div *ngIf="eventosCriados.length > 0; else noCreatedEvents">
           <div *ngFor="let evento of eventosCriados" class="event-card">

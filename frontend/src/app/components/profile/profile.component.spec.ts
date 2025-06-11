@@ -10,7 +10,7 @@ describe('ProfileComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        ProfileComponent, // Componente standalone importa a si mesmo
+        ProfileComponent,
         CommonModule,
         RouterTestingModule
       ]
@@ -43,22 +43,20 @@ describe('ProfileComponent', () => {
     fixture.detectChanges();
     expect(component.menuAberto).toBeTrue();
     const sidebar = fixture.nativeElement.querySelector('.sidebar');
-    expect(sidebar?.classList.contains('aberto')).toBeTrue(); // Adicionado '?' para segurança
+    expect(sidebar?.classList.contains('aberto')).toBeTrue();
     menuButton.click();
     fixture.detectChanges();
     expect(component.menuAberto).toBeFalse();
-    expect(sidebar?.classList.contains('aberto')).toBeFalse(); // Adicionado '?' para segurança
+    expect(sidebar?.classList.contains('aberto')).toBeFalse();
   });
 
   it('should toggle event details for eventosParticipados when an event summary is clicked', () => {
-    // Verifica se há eventos para testar
     if (component.eventosParticipados && component.eventosParticipados.length > 0) {
-      const firstEvent = component.eventosParticipados[0]; // CORREÇÃO AQUI
-      firstEvent.expandido = false; // Garante estado inicial para o teste
+      const firstEvent = component.eventosParticipados[0]; 
+      firstEvent.expandido = false;
       fixture.detectChanges();
       expect(firstEvent.expandido).toBeFalse();
 
-      // Encontra o primeiro card de evento da lista de "eventos que participei"
       const eventCards = fixture.nativeElement.querySelectorAll('.event-list:not(.created-events) .event-card .event-summary');
       expect(eventCards.length).toBeGreaterThan(0);
       const eventCardToClick = eventCards[0] as HTMLElement;
@@ -67,23 +65,20 @@ describe('ProfileComponent', () => {
       fixture.detectChanges();
 
       expect(firstEvent.expandido).toBeTrue();
-      // Verifica se o elemento de detalhes está visível
       const eventDetails = fixture.nativeElement.querySelector('.event-list:not(.created-events) .event-card .event-details');
       expect(eventDetails).toBeTruthy();
     } else {
-      pending('No eventosParticipados to test'); // Pula o teste se não houver eventos
+      pending('No eventosParticipados to test');
     }
   });
 
-  // Você pode adicionar um teste similar para 'eventosCriados' se a funcionalidade de expandir for a mesma
   it('should toggle event details for eventosCriados when an event summary is clicked', () => {
     if (component.eventosCriados && component.eventosCriados.length > 0) {
       const firstCreatedEvent = component.eventosCriados[0];
-      firstCreatedEvent.expandido = false; // Garante estado inicial
+      firstCreatedEvent.expandido = false;
       fixture.detectChanges();
       expect(firstCreatedEvent.expandido).toBeFalse();
 
-      // Encontra o primeiro card de evento da lista de "eventos criados por mim"
       const createdEventCards = fixture.nativeElement.querySelectorAll('.event-list.created-events .event-card .event-summary');
       expect(createdEventCards.length).toBeGreaterThan(0);
       const createdEventCardToClick = createdEventCards[0] as HTMLElement;

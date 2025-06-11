@@ -9,17 +9,17 @@ import { QRCodeComponent } from 'angularx-qrcode';
   styleUrl: './qrcode.component.scss'
 })
 export class QrcodeComponent {
-  counter = signal(1);               // Valor do QR code
-  secondsLeft = signal(20);          // Contador regressivo de segundos
+  counter = signal(1);               
+  secondsLeft = signal(20);          
 
   constructor() {
     setInterval(() => {
-      this.counter.update((val) => val + 1);   // Atualiza QR
-      this.secondsLeft.set(20);                // Reseta contador
+      this.counter.update((val) => val + 1);   
+      this.secondsLeft.set(20);                
     }, 20000);
 
     setInterval(() => {
-      this.secondsLeft.update((val) => val > 0 ? val - 1 : 0); // Decrementa a cada segundo
+      this.secondsLeft.update((val) => val > 0 ? val - 1 : 0); 
     }, 1000);
   }
 }

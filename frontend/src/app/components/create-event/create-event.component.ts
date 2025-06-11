@@ -53,7 +53,6 @@ export class CreateEventComponent implements OnInit {
   onSubmit(): void {
     this.errorMessage = null;
 
-    // Converte capacidade para número, se não for nulo
     if (this.eventData.capacidade !== null) {
       this.eventData.capacidade = Number(this.eventData.capacidade);
     }

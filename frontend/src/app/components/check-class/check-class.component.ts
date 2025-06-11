@@ -1,5 +1,3 @@
-// frontend/src/app/components/check-class/check-class.component.ts
-
 import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener, OnInit } from '@angular/core'; // MODIFICADO: Adicionado OnInit
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -17,7 +15,6 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./check-class.component.scss']
 })
 
-// MODIFICADO: Implementa a interface OnInit
 export class CheckClassComponent implements OnInit { 
   isScanning = false;
   formats = [BarcodeFormat.QR_CODE];
@@ -26,11 +23,9 @@ export class CheckClassComponent implements OnInit {
   menuAberto = false;
   larguraTela = window.innerWidth;
 
-  // NOVO: Propriedade para armazenar os dados do usuário
   usuario = {
     nome: 'Usuário',
     email: 'Carregando...',
-    // Defina uma imagem padrão caso o usuário não tenha uma
     imagemUrl: 'assets/images/default-profile.png' 
   };
 
@@ -44,16 +39,13 @@ export class CheckClassComponent implements OnInit {
     }).catch(err => console.error("Erro ao enumerar dispositivos:", err));
   }
 
-  // NOVO: Implementação do ciclo de vida ngOnInit
   ngOnInit(): void {
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       const userData = JSON.parse(userDataString);
-      // Atualiza o objeto 'usuario' com os dados do localStorage
       this.usuario = {
         nome: userData.nome || 'Usuário',
         email: userData.email || 'email@exemplo.com',
-        // Use a imagem do usuário se existir, senão mantenha a padrão
         imagemUrl: userData.imagemUrl || 'assets/images/default-profile.png'
       };
     }
@@ -70,7 +62,6 @@ export class CheckClassComponent implements OnInit {
       return;
     }
     
-    // ATENÇÃO: Verifique se o método no seu ApiService se chama 'registerPresence'
     this.apiService.registerPresence(eventoId, qrToken).subscribe({
       next: (response) => {
         alert('Presença registrada com sucesso!');
@@ -86,7 +77,6 @@ export class CheckClassComponent implements OnInit {
     this.isScanning = true;
   }
 
-  // Métodos do menu (sem alteração)
   toggleMenu(): void {
     this.menuAberto = !this.menuAberto;
   }

@@ -1,4 +1,3 @@
-// frontend/src/app/components/register/register.component.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -27,9 +26,7 @@ export class RegisterComponent {
     this.apiService.register(this.registerData).subscribe({
       next: (response) => {
         console.log('Registro bem-sucedido!', response);
-        // Opcional: mostrar uma mensagem de sucesso
         alert('Cadastro realizado com sucesso! Você será redirecionado para o login.');
-        // Redireciona para a página de login após o sucesso
         this.router.navigate(['/login']);
       },
       error: (err) => {

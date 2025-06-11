@@ -1,5 +1,3 @@
-// frontend/src/app/components/profile/profile.component.ts
-
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -51,10 +49,8 @@ export class ProfileComponent implements OnInit {
       return;
     }
 
-    // Busca os eventos criados
     this.apiService.getCreatedEvents(userId).subscribe({
       next: data => {
-        // Adiciona a propriedade 'expandido' para controle do template
         this.eventosCriados = data.map((evento: any) => ({ ...evento, expandido: false }));
         this.isLoading = false;
       },
@@ -65,10 +61,8 @@ export class ProfileComponent implements OnInit {
       }
     });
 
-    // Busca os eventos participados
     this.apiService.getParticipatedEvents(userId).subscribe({
       next: data => {
-        // Adiciona a propriedade 'expandido' para controle do template
         this.eventosParticipados = data.map((evento: any) => ({ ...evento, expandido: false }));
       },
       error: err => {
@@ -77,12 +71,10 @@ export class ProfileComponent implements OnInit {
     });
   }
   
-  // NOVO MÉTODO: Para controlar o expandir/recolher dos cards
   toggleDetalhes(evento: any): void {
     evento.expandido = !evento.expandido;
   }
 
-  // Métodos do menu (sem alteração)
   toggleMenu(): void { this.menuAberto = !this.menuAberto; }
   fecharMenu(): void { if (this.menuAberto) { this.menuAberto = false; } }
   @HostListener('window:resize', ['$event'])
