@@ -26,5 +26,10 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/profile/profile.component').then((m) => m.ProfileComponent)
   },
+  {
+    path: 'create-event',
+    loadComponent: () =>
+      import('./components/create-event/create-event.component').then((m) => m.CreateEventComponent)
+  },
   { path: '', redirectTo: 'login', pathMatch: 'full' }
 ];

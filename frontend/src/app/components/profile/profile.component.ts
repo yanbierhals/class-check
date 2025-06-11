@@ -16,8 +16,7 @@ export class ProfileComponent implements OnInit {
   menuAberto = false;
   larguraTela = window.innerWidth;
 
-  // Propriedades para os dados reais
-  usuario: any = { nome: 'Carregando...' }; // Inicia com valor padrão
+  usuario: any = { nome: 'Carregando...' };
   eventosCriados: any[] = [];
   eventosParticipados: any[] = [];
   isLoading = true;
@@ -31,9 +30,11 @@ export class ProfileComponent implements OnInit {
     const userDataString = localStorage.getItem('userData');
     if (userDataString) {
       this.usuario = JSON.parse(userDataString);
+      if (!this.usuario.imagemUrl) {
+        this.usuario.imagemUrl = 'assets/images/default-profile.png';
+      }
       this.carregarEventos();
     } else {
-      // Caso não encontre dados do usuário, exibe erro
       this.isLoading = false;
       this.errorMessage = "Não foi possível carregar os dados do usuário. Faça o login novamente.";
     }
@@ -53,7 +54,8 @@ export class ProfileComponent implements OnInit {
     // Busca os eventos criados
     this.apiService.getCreatedEvents(userId).subscribe({
       next: data => {
-        this.eventosCriados = data;
+        // Adiciona a propriedade 'expandido' para controle do template
+        this.eventosCriados = data.map((evento: any) => ({ ...evento, expandido: false }));
         this.isLoading = false;
       },
       error: err => {
@@ -66,36 +68,25 @@ export class ProfileComponent implements OnInit {
     // Busca os eventos participados
     this.apiService.getParticipatedEvents(userId).subscribe({
       next: data => {
-        this.eventosParticipados = data;
+        // Adiciona a propriedade 'expandido' para controle do template
+        this.eventosParticipados = data.map((evento: any) => ({ ...evento, expandido: false }));
       },
       error: err => {
         console.error("Erro ao buscar eventos participados", err);
-        // Pode adicionar uma mensagem de erro específica se desejar
       }
     });
   }
+  
+  // NOVO MÉTODO: Para controlar o expandir/recolher dos cards
+  toggleDetalhes(evento: any): void {
+    evento.expandido = !evento.expandido;
+  }
 
   // Métodos do menu (sem alteração)
-  toggleMenu(): void {
-    this.menuAberto = !this.menuAberto;
-  }
-
-  fecharMenu(): void {
-    if (this.menuAberto) {
-      this.menuAberto = false;
-    }
-  }
-
+  toggleMenu(): void { this.menuAberto = !this.menuAberto; }
+  fecharMenu(): void { if (this.menuAberto) { this.menuAberto = false; } }
   @HostListener('window:resize', ['$event'])
-  onResize(event?: Event): void {
-    this.verificarLarguraTela();
-  }
-
-  private verificarLarguraTela(): void {
-    this.larguraTela = window.innerWidth;
-  }
-
-  pararPropagacao(event: MouseEvent): void {
-    event.stopPropagation();
-  }
+  onResize(event?: Event): void { this.verificarLarguraTela(); }
+  private verificarLarguraTela(): void { this.larguraTela = window.innerWidth; }
+  pararPropagacao(event: MouseEvent): void { event.stopPropagation(); }
 }
