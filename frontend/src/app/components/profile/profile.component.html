@@ -86,7 +86,7 @@
         </div>
         <div *ngIf="eventosCriados.length > 0; else noCreatedEvents">
           <div *ngFor="let evento of eventosCriados" class="event-card">
-            <div class="event-summary" (click)="toggleDetalhes(evento)">
+            <div class="event-summary" (click)="toggleDetalhes(evento, true)">
               <div class="event-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#4A90E2" class="bi bi-card-list" viewBox="0 0 16 16">
                   <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zM1 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1z"/>

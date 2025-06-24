@@ -78,9 +78,8 @@ export class ProfileComponent implements OnInit {
   }
 
   toggleDetalhes(evento: any, isCriadoPorMim = false): void {
-    evento.expandido = !evento.expandido;
+  evento.expandido = !evento.expandido;
 
-    // Se o evento foi criado pelo usuário e está sendo expandido, busca os participantes
     if (isCriadoPorMim && evento.expandido && evento.participantes.length === 0) {
       evento.participantesLoading = true;
       this.apiService.getAttendees(evento.id).subscribe({
