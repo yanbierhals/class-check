@@ -1,4 +1,4 @@
-import { Component, signal, effect, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { QRCodeComponent } from 'angularx-qrcode';
 import { ApiService } from '../../services/api.service';
@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './qrcode.component.scss'
 })
 export class QrcodeComponent implements OnInit {
-  secondsLeft = signal(20);
+  // REMOVIDO: secondsLeft = signal(20);
 
   isLoading = true;
   errorMessage: string | null = null;
@@ -25,9 +25,7 @@ export class QrcodeComponent implements OnInit {
       this.eventId  = Number(id) ;
     });
 
-    setInterval(() => {
-      this.secondsLeft.update((val) => val > 0 ? val - 1 : 0);
-    }, 1000);
+    // REMOVIDO: Lógica do setInterval
   }
 
   ngOnInit() {
