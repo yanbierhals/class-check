@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-qrcode',
+  standalone: true,
   imports: [CommonModule, QRCodeComponent],
   templateUrl: './qrcode.component.html',
   styleUrl: './qrcode.component.scss'
@@ -15,9 +16,8 @@ export class QrcodeComponent implements OnInit {
 
   isLoading = true;
   errorMessage: string | null = null;
-  eventId: number= 1; // Substitua pelo ID do evento real
-  qrCodeToken: string = '';
-  object: any = {};
+  eventId: number= 1;
+  qrCodeValue: string = '';
 
   constructor(private apiService: ApiService, private route: ActivatedRoute) {
      this.route.paramMap.subscribe(params => {
@@ -31,14 +31,14 @@ export class QrcodeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(1)
     this.apiService.getEvent(this.eventId).subscribe({
       next: data => {
-        this.qrCodeToken = data.qr_code_token;
+        this.qrCodeValue = `${data.id};${data.qr_code_token}`;
+        this.isLoading = false;
       },
       error: err => {
-        console.error("Erro ao buscar eventos criados", err);
-        this.errorMessage = "Não foi possível carregar seus eventos criados.";
+        console.error("Erro ao buscar evento", err);
+        this.errorMessage = "Não foi possível carregar o QR code do evento.";
         this.isLoading = false;
       }
     });
