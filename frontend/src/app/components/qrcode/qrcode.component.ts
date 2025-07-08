@@ -17,7 +17,6 @@ export class QrcodeComponent implements OnInit, OnDestroy {
   eventId: number= 1;
   qrCodeValue: string = '';
   intervalId: any;
-  i: number = 0;
   baseUrl: string = window.location.origin; // base da URL para o link do QR code
 
   constructor(private apiService: ApiService, private route: ActivatedRoute) {
@@ -32,9 +31,8 @@ export class QrcodeComponent implements OnInit, OnDestroy {
       next: data => {
         this.updateQrCodeValue(data);
         this.isLoading = false;
-        // Atualiza o QR code a cada minuto
+        // Atualiza o QR code a cada minuto, sempre usando o minuto atual
         this.intervalId = setInterval(() => {
-          this.i += 1;
           this.updateQrCodeValue(data);
         }, 60000);
       },
@@ -47,8 +45,9 @@ export class QrcodeComponent implements OnInit, OnDestroy {
   }
 
   updateQrCodeValue(data: any) {
-    // Exemplo de link: https://dominio.com/check-class?event={id}&token={token}&i={i}
-    this.qrCodeValue = `${this.baseUrl}/check-class?event=${data.id}&token=${data.qr_code_token}&i=${this.i}`;
+    // Valor de i baseado no minuto atual (timestamp em minutos)
+    const i = Math.floor(Date.now() / 60000);
+    this.qrCodeValue = `${this.baseUrl}/check-class?event=${data.id}&token=${data.qr_code_token}&i=${i}`;
   }
 
   ngOnDestroy() {
