@@ -29,12 +29,29 @@ export class QrcodeComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.apiService.getEvent(this.eventId).subscribe({
       next: data => {
-        this.updateQrCodeValue(data);
-        this.isLoading = false;
-        // Atualiza o QR code a cada minuto, sempre usando o minuto atual
-        this.intervalId = setInterval(() => {
+        if (!data.qr_code_token) {
+          // Se não houver token, gera automaticamente
+          this.apiService.generateQrCodeToken(this.eventId).subscribe({
+            next: (tokenResp) => {
+              data.qr_code_token = tokenResp.qrCodeValue;
+              this.updateQrCodeValue(data);
+              this.isLoading = false;
+              this.intervalId = setInterval(() => {
+                this.updateQrCodeValue(data);
+              }, 60000);
+            },
+            error: err => {
+              this.errorMessage = 'Não foi possível gerar o token do QR code.';
+              this.isLoading = false;
+            }
+          });
+        } else {
           this.updateQrCodeValue(data);
-        }, 60000);
+          this.isLoading = false;
+          this.intervalId = setInterval(() => {
+            this.updateQrCodeValue(data);
+          }, 60000);
+        }
       },
       error: err => {
         console.error("Erro ao buscar evento", err);
