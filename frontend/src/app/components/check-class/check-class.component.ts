@@ -72,8 +72,8 @@ export class CheckClassComponent implements OnInit {
       }
 
       const now = new Date();
-      const currentMinute = Math.floor(now.getTime() / 60000);
-      // Aceita o QR code se for do minuto atual, anterior ou próximo
+      const currentMinute = Math.floor(now.getTime() / 360000);
+      // Aceita o QR code tenham margem de 6 minutos, anterior ou próximo
       if (i !== currentMinute && i !== currentMinute - 1 && i !== currentMinute + 1) {
         alert('QR Code expirado! Por favor, escaneie o código atualizado.');
         return;
